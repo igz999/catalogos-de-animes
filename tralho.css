@@ -1,0 +1,71 @@
+body { 
+    font-family: arial, sans-serif;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f4f4f4;
+}
+h1, h2 {
+    color: #333;
+}
+form {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+button:hover {
+    background-color: #0056b3;
+}
+
+/* ----------------------------------------------------- */
+/* ESTILOS PARA A FASE 2: LISTA COM POSTER (Flexbox) */
+/* ----------------------------------------------------- */
+
+/* Contêiner do Filme: Organiza imagem e texto */
+.filme-item {
+    display: flex; /* Habilita o alinhamento lado a lado */
+    align-items: flex-start; /* Alinha o conteúdo ao  topo */
+
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo do Pôster */
+.filme-poster {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    margin-right: 15px; /* Espaço entre o pôster e o texto */
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}

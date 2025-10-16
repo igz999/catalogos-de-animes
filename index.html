@@ -102,10 +102,109 @@
             removerBotao.classList.add('btn-remover');
 
             // B. DEFINIÇÃO DO EVENTO DE REMOÇÃO (addEventListener)
+           // Anexa a função removerFilTO DE REMOÇÃO (addEventListener)me ao clique do botão.
+removerBotao.addEventListener('click', () => {
+// Ao clicar, chamamos a função, passando o indice (posição) e a propria <div> (filmeDiv).
+removerFilme(indice, filmeDiv);
+ ventListener('click', () => {
+// Ao clicar, chamamos a função, passando o indice (posição) e a propria <div> (filmeDiv).
+removerFilme(indice, filmeDiv);
+
+});
+
+
+// C. ANEXAR ELEMENTOS (appendChild)
+
+// Monta a estrutura hierárquica:
+// filmeDiv
+//   |- títuloH3
+//   |- sinopseP
+//   |- removerBotao
+filmeDiv.appndChild(tituloH3);
+filmeDiv.appndChild(sinopseP);
+filmeDiv.appndChild(removerBotao);
+
+// D. INSERÇÂO NO DOM FINAL
+// Adiciona o filme montado (filmeDiv) dentro do conteiner principal na pagina.
+listaFilmesContainer.appndChild(filmeDiv);
+
+// ------------------------------------------------
+// FUNÇÂO PRINCIPAL DE ADIÇÂO (Manipular do Formulário)
+//--------------------------------------------------
+// **
+ /** 
+  * Lida com envio do formulário, captura os dados e salva o filme.
+  * @param {Event} evento - O evento de 'submit' do formulário.
+  */
+ function adicionarFilme(evento){
+   // 3. Previne o recarregmento da página
+   // O comportamento pdrão de um formulário é recarregar a página. OpreventDefault() impede isso.
+   evento.preventDefault();
+
+   // 4. Captura os valores dos campos
+   const tituloInput = document.getElementById('titulo')
+});
+
+
+// C. ANEXAR ELEMENTOS (appendChild)
+
+// Monta a estrutura hierárquica:
+// filmeDiv
+//   |- títuloH3
+//   |- sinopseP
+//   |- removerBotao
+filmeDiv.appndChild(tituloH3);
+filmeDiv.appndChild(sinopseP);
+filmeDiv.appndChild(removerBotao);
+
+// D. INSERÇÂO NO DOM FINAL
+// Adiciona o filme montado (filmeDiv) dentro do conteiner principal na pagina.
+listaFilmesContainer.appndChild(filmeDiv);
+
+// ------------------------------------------------
+// FUNÇÂO PRINCIPAL DE ADIÇÂO (Manipular do Formulário)
+//--------------------------------------------------
+// **
+ /** 
+  * Lida com envio do formulário, captura os dados e salva o filme.
+  * @param {Event} evento - O evento de 'submit' do formulário.
+  */
+ function adicionarFilme(evento){
+   // 3. Previne o recarregmento da página
+   // O comportamento pdrão de um formulário é recarregar a página. OpreventDefault() impede isso.
+   evento.preventDefault();
+
+   // 4. Captura os valores dos campos
+   const tituloInput = document.getElementById('titulo')
+   const sinopsInput = document.getElementById('sinopse')
+  
+   // Cria o objeto JavaScript com os dados 
+   const novoFilme = {
+      titulo: tituloInput.value,
+      sinopse: sinopseInput.value
    }
+  // 5. Armazena o filme no Array
+  // O método . push() adiciona o novo objeto no funal do array 'catalogo'
+  catalogo.push(novofilme);
+  
+  // 6. Rederiza na Tela
+  // Passamos o novo objeto e seu índice (que é último, ou seja tamnho - 1)
+  renderirFilme(novoFilme, catalago.length -1);
+
+  // 7. Limpa o formulário
+  // O método . reset() limpa os campos do formulário para próximo cadastro.
 
 
-    </script>
+  
+ } 
+ // ESCURANDO O EVENTO DO BOTÂO/FORMULÁRIO
+ // Anexamos a função 'adicionarFilme' ao evento de 'submit' do formulário
+ form.addEventListener('submit', adicionarFilme);
+  console.log("JavaScript Carregado. Pronto para iniciar o catálogo!");
+  
+
+</script>
+
 
 
 </body>
