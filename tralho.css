@@ -69,3 +69,20 @@ button:hover {
     border-radius: 4px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
+
+/* Estilo do Bloco de Informações */
+.filme-info {
+    flex-grow: 1; /* Ocupa o espaço restante */
+}
+ .filme-info h3 {
+    margin-top: 0;
+    color: #007bff;
+    font-size: 1.2em;
+ }
+
+ .filme-info p {
+    font-style: normal;
+    color: #555;
+    margin-bottom: 15px;
+    
+ }
