@@ -84,5 +84,15 @@ button:hover {
     font-style: normal;
     color: #555;
     margin-bottom: 15px;
-    
+    line-height: 1.4;
+ }
+
+ /* Botão Remover */
+ .filme-item .btn-remover {
+    background-color: #dc3545;
+    font-size: 0.8em;
+    padding: 5px 10px;
+ }
+ .filme-item .btn-remover:hover {
+    background-color: #c82333;
  }
