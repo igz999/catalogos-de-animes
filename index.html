@@ -3,184 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link rel="stylesheet" href="tralho.css">
+    <title>Catálogo de Filmes Dinâmico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #lista-filmes {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .filme {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .filme:last-child {
+            border-bottom: none;
+        }
+        .mensagem-inicial {
+            color: #666;
+            font-style: italic;
+        }
+        #resultados-busca {
+            margin-top: 20px;
+        }
+        .resultado {
+            background: #e9ecef;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .resultado button {
+            width: auto;
+            margin-left: 10px;
+        }
+    </style>
 </head>
-
 <body>
-    <h1>Catalogos de Filmes</h1>
-<form id="cadastro-filmes">
-<h2>Adicionar Novos Filmes</h2>
-<div>
-<label for="titulo">Titulo do Filme:</label>
-<input type="text" id="titulo" required>
-</div>
-
-<div>
-<label for="sinopse">Sinopse</label>
-<textarea id="sinopse" required ></textarea>
-</div>
-<button type="submit"> Adicionar Filme</button>
-</form>
-<hr>
-
-<h2>minha Lista de Filmes</h2>
-
-<div id="lista-filmes">
-    <p> Nenhum filme cadastro ainda.</p>
-</div>
- 
-<script>
-// 1. armazenarr de dados
-// Array global que ira guarda todos os filmes como objetos
-// ex [{titulo: Filme X , sinopse: 'sinopse y'}]
-// CORREÇÃO: Variável Global renomeada para 'catalogo' para consistência.
-const  catalogo = [];
-
-// 2. captura de elementos do dom (document object model)
-// capturamos os elementos HTML que vamos interagir usando seus IDs
-// CORREÇÃO: IDs corrigidos para 'cadastro-filmes' e 'lista-filmes'
-const form = document.getElementById('cadastro-filmes');
-const listaFilmesContainer = document.getElementById('lista-filmes');
-
-//----------------------
-// FUNÇÃO DE REMOÇÃO
-// ---------------------
-/**
-* Remove um filme do array de dados e do elemento HTML na tela.
-*@param {number} indice - A posição do filme no array 'catalogo'
-*@param {HTMLElement} elementoDOM - O elemento <div> do filme a ser removido da tela
-*/
-
-function removerFilme(indice, elementoDOM) {
-// A. REMOÇÃO DO ARRAY (Lógica)
-// splice(indice, 1) remove 1 elemento a partir da posição 'indice'.
-// Isso atualiza o array 'catalogo'
-catalogo.splice(indice, 1);
-
-//  B. REMOÇÃO DO DOM (Visual)
-//  O método .remove() retira o elemento html da visualizaçao do usuario
-elementoDOM.remove();
-
-// opcional: atualiza a mensagem da lista se estiver vazia
-if (catalogo.length === 0 ) {
-    listaFilmesContainer.innerHTML = '<p>Nenhum filme cadastro ainda.</p>';
-}
-// CORREÇÃO: Uso da variável 'catalogo'
-console.log(`Filme no indice ${indice} removido.  Catalogo atualizado:` , catalogo);
-}
-
-//-----------------------------------------
-// funçao de renderizaçao
-//-----------------------------------------
-/**
- * cria e exibe a estrutura a HTML de um filme na lista.
- * @param {object} filme - o objeto {titulo, sinopse} do filme.
- * @param { number} indice - o indice atual do filme no array 'catalogo'.
- */
-function  renderirFilme( filme, indice) {
-    // remove a mensagem inicial se for o primeiro filme
-    // CORREÇÃO: Uso da variável 'catalogo' e condição de primeiro elemento.
-    if ( catalogo.length === 1) {
-        listaFilmesContainer.innerHTML = '';
-    }
-   
-    // A. criaçao de elementos HTML (document.createElement)
-
-    // cria a <div> que sera o conteiner de cada filme.
-    const filmeDiv = document.createElement('div');
-    filmeDiv.classList.add('filme-item'); // adiciona uma classe paara estilizaçao
-
-    // cria o <h3> para o titulo e define seu texto.
-    const tituloH3 = document.createElement('h3');
-    // CORREÇÃO: Variável H3 corrigida
-    tituloH3.textContent = filme.titulo;
-
-    // cria o <p> para a sinopse
-    // CORREÇÃO: Elemento criado como <p> em vez de <button>
-    const sinopseP= document.createElement('p');
-    sinopseP.textContent = filme.sinopse;
-
-    // Cria o botão de remoção.
-    // CORREÇÃO: Atribuição correta do botão
-    const removerBotao = document.createElement('button');
-    removerBotao.textContent = 'Remover';
-   
-    removerBotao.classList.add('btn-remover');
-   
-    // B. DEFINIÇÃO DO EVENTO DE REMOÇÃO (addEventListener)
-    // Anexa a função removerFilme ao clique do botão.
-    removerBotao.addEventListener('click', () => {
-        // Ao clicar, chamamos a função, passando o indice (posição) e a propria <div> (filmeDiv).
-        removerFilme(indice, filmeDiv);
-    });
-
-
-    // C. ANEXAR ELEMENTOS (appendChild)
-
-    // Monta a estrutura hierárquica:
-    // filmeDiv
-    //   |- títuloH3
-    //   |- sinopseP
-    //   |- removerBotao
-    // CORREÇÃO: Erro de digitação 'appndChild' corrigido para 'appendChild'
-    filmeDiv.appendChild(tituloH3);
-    filmeDiv.appendChild(sinopseP);
-    filmeDiv.appendChild(removerBotao);
-
-    // D. INSERÇÂO NO DOM FINAL
-    // Adiciona o filme montado (filmeDiv) dentro do conteiner principal na pagina.
-    filmeDiv.setAttribute('data-indice', indice); // Opcional: para rastreamento
-    listaFilmesContainer.appendChild(filmeDiv);
-}
-
-// ------------------------------------------------
-// FUNÇÂO PRINCIPAL DE ADIÇÂO (Manipular do Formulário)
-//--------------------------------------------------
-/** * Lida com envio do formulário, captura os dados e salva o filme.
-  * @param {Event} evento - O evento de 'submit' do formulário.
-  */
- function adicionarFilme(evento){
-   // 3. Previne o recarregmento da página
-   // O comportamento padrão de um formulário é recarregar a página. O preventDefault() impede isso.
-   evento.preventDefault();
-
-   // 4. Captura os valores dos campos
-   const tituloInput = document.getElementById('titulo');
-   // CORREÇÃO: ID 'sinopse' e variável 'sinopseInput'
-   const sinopseInput = document.getElementById('sinopse');
- 
-   // Cria o objeto JavaScript com os dados
-   const novoFilme = {
-      titulo: tituloInput.value,
-      sinopse: sinopseInput.value
-   }
-  // 5. Armazena o filme no Array
-  // O método . push() adiciona o novo objeto no final do array 'catalogo'
-  // CORREÇÃO: Uso da variável 'catalogo'
-  catalogo.push(novoFilme);
- 
-  // 6. Rederiza na Tela
-  // Passamos o novo objeto e seu índice (que é último, ou seja tamanho - 1)
-  // CORREÇÃO: Uso da variável 'catalogo'
-  renderirFilme(novoFilme, catalogo.length - 1);
-
-  // 7. Limpa o formulário
-  // O método . reset() limpa os campos do formulário para próximo cadastro.
-  // CORREÇÃO: Adicionando o reset do formulário
-  form.reset();
- 
- }
- // ESCUTANDO O EVENTO DO BOTÃO/FORMULÁRIO
- // Anexamos a função 'adicionarFilme' ao evento de 'submit' do formulário
- form.addEventListener('submit', adicionarFilme);
- console.log("JavaScript Carregado. Pronto para iniciar o catálogo!");
- 
-
-</script>
-
-
-
+    <h1>Catálogo de Filmes</h1>
+    
+    <form id="busca-filmes">
+        <h2>Buscar Filmes na OMDb</h2>
+        <div>
+            <label for="titulo-busca">Título do Filme:</label>
+            <input type="text" id="titulo-busca" placeholder="Digite o título do filme" required>
+        </div>
+        <button type="submit">Buscar Filme</button>
+    </form>
+    
+    <div id="resultados-busca"></div>
+    
+    <hr>
+    
+    <h2>Minha Lista de Filmes</h2>
+    <div id="lista-filmes">
+        <p class="mensagem-inicial">Nenhum filme cadastrado ainda.</p>
+    </div>
+    
+    <script>
+        // A CHAVE SECRETA DA API OMDb (Substitua esta string pela sua chave real)
+        const API_KEY = "dea7f304";
+        
+        const buscaForm = document.getElementById('busca-filmes');
+        const resultadosDiv = document.getElementById('resultados-busca');
+        const listaFilmes = document.getElementById('lista-filmes');
+        const mensagemInicial = document.querySelector('.mensagem-inicial');
+        
+        let filmesAdicionados = [];
+        
+        buscaForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const titulo = document.getElementById('titulo-busca').value.trim();
+            if (!titulo) return;
+            
+            try {
+                const response = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(titulo)}&apikey=${API_KEY}`);
+                const data = await response.json();
+                
+                if (data.Response === 'True') {
+                    resultadosDiv.innerHTML = `
+                        <h3>Resultado da Busca:</h3>
+                        <div class="resultado">
+                            <div>
+                                <strong>${data.Title}</strong> (${data.Year})<br>
+                                <em>${data.Plot}</em>
+                            </div>
+                            <button onclick="adicionarFilme('${data.Title}', '${data.Plot.replace(/'/g, "\\'")}')">Adicionar à Lista</button>
+                        </div>
+                    `;
+                } else {
+                    resultadosDiv.innerHTML = `<p>Filme não encontrado. Tente outro título.</p>`;
+                }
+            } catch (error) {
+                console.error('Erro ao buscar filme:', error);
+                resultadosDiv.innerHTML = `<p>Erro ao buscar filme. Tente novamente.</p>`;
+            }
+        });
+        
+        function adicionarFilme(titulo, sinopse) {
+            if (filmesAdicionados.some(f => f.titulo === titulo)) {
+                alert('Este filme já foi adicionado!');
+                return;
+            }
+            
+            filmesAdicionados.push({ titulo, sinopse });
+            atualizarLista();
+            resultadosDiv.innerHTML = '';
+            document.getElementById('titulo-busca').value = '';
+        }
+        
+        function atualizarLista() {
+            if (filmesAdicionados.length === 0) {
+                listaFilmes.innerHTML = '<p class="mensagem-inicial">Nenhum filme cadastrado ainda.</p>';
+                return;
+            }
+            
+            listaFilmes.innerHTML = filmesAdicionados.map(filme => `
+                <div class="filme">
+                    <h3>${filme.titulo}</h3>
+                    <p>${filme.sinopse}</p>
+                    <button onclick="removerFilme('${filme.titulo}')">Remover</button>
+                </div>
+            `).join('');
+        }
+        
+        function removerFilme(titulo) {
+            filmesAdicionados = filmesAdicionados.filter(f => f.titulo !== titulo);
+            atualizarLista();
+        }
+    </script>
 </body>
 </html>
